@@ -12,8 +12,8 @@ func TestHello(t *testing.T) {
 }
 
 func TestHelloUser(t *testing.T) {
-	t.Run("saying 'Hello Username', when a name is provided", func(t *testing.T) {
-		got := HelloUser("Matt")
+	t.Run("saying 'Hello Username', when a name is provided with no language", func(t *testing.T) {
+		got := HelloUser("Matt", "")
 		want := "Hello, Matt!"
 
 		assertCorrectMsg(t, got, want)
@@ -21,8 +21,22 @@ func TestHelloUser(t *testing.T) {
 	})
 
 	t.Run("Saying 'Hello there' when the username is not provided", func(t *testing.T) {
-		got := HelloUser("")
+		got := HelloUser("", "")
 		want := "Hello there!"
+
+		assertCorrectMsg(t, got, want)
+	})
+
+	t.Run("Saying 'Hola, Username!' when username is passed and the language is set to spanish", func(t *testing.T) {
+		got := HelloUser("Matt", "spanish")
+		want := "Hola, Matt!"
+
+		assertCorrectMsg(t, got, want)
+	})
+
+	t.Run("Saying 'Hola!' when no username is passed and the language is set to spanish", func(t *testing.T) {
+		got := HelloUser("", "spanish")
+		want := "Hola!"
 
 		assertCorrectMsg(t, got, want)
 	})
