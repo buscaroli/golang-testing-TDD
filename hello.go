@@ -3,28 +3,37 @@ package main
 import "fmt"
 
 // Constants should improve performance of your application as it saves you creating the "Hello, " string instance every time Hello is called.
-const HelloPrefix = "Hello, "
-const HolaPrefix = "Hola, "
+const HelloPrefix = "Hello "
+const HolaPrefix = "Hola "
+const SalutPrefix = "Salut "
 const spanish = "spanish"
+const french = "french"
 
 func Hello() string {
 	return "Hello, World!"
 }
 
-func HelloUser(u string, l string) string {
-	if u == "" {
-		if l == spanish {
-			return "Hola!"
-		}
-		return "Hello there!"
-
-	} else {
-		if l == spanish {
-			return HolaPrefix + u + "!"
-		}
+func HelloUser(username string, language string) string {
+	if username == "" {
+		username = ""
 	}
 
-	return HelloPrefix + u + "!"
+	return greetingPrefix(language) + username + "!"
+}
+
+func greetingPrefix(language string) string {
+	var greeting string
+
+	switch language {
+	case spanish:
+		greeting = HolaPrefix
+	case french:
+		greeting = SalutPrefix
+	default:
+		greeting = HelloPrefix
+	}
+
+	return greeting
 }
 
 func main() {
