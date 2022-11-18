@@ -46,6 +46,28 @@ func TestAdd(t *testing.T) {
 	})
 }
 
+func TestUpdate(t *testing.T) {
+	dictionary := Dictionary{"test": "this is a test"}
+
+	t.Run("tests an existing key can be updated", func(t *testing.T) {
+		dic_k := "test"
+		dic_v := "updated key"
+		err := dictionary.Update(dic_k, dic_v)
+
+		assertResult(t, dictionary[dic_k], dic_v)
+		assertError(t, err, nil)
+	})
+
+	t.Run("tests trying to update a non existent key will return an error", func(t *testing.T) {
+		dic_k := "ten"
+		dic_v := "tenth"
+		err := dictionary.Update(dic_k, dic_v)
+
+		assertError(t, err, ErrKeyDoesNotExists)
+		assertResult(t, dictionary[dic_k], "")
+	})
+}
+
 func assertResult(t testing.TB, result, expect string) {
 	t.Helper()
 

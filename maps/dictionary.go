@@ -5,8 +5,9 @@ type Dictionary map[string]string
 type DictionaryError string
 
 const (
-	ErrNotFound  = DictionaryError("key does not exist")
-	ErrKeyExists = DictionaryError("key already in dictionary")
+	ErrNotFound         = DictionaryError("key does not exist")
+	ErrKeyExists        = DictionaryError("key already in dictionary")
+	ErrKeyDoesNotExists = DictionaryError("key does not exists")
 )
 
 func (e DictionaryError) Error() string {
@@ -29,6 +30,18 @@ func (d Dictionary) Add(k, v string) error {
 	result := d[k]
 	if result != "" {
 		return ErrKeyExists
+	}
+
+	d[k] = v
+	return nil
+}
+
+// Updates an existing key. Returns an error if key does not exists.
+func (d Dictionary) Update(k, v string) error {
+	result := d[k]
+
+	if result == "" {
+		return ErrKeyDoesNotExists
 	}
 
 	d[k] = v
