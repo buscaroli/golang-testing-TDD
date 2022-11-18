@@ -28,10 +28,11 @@ func TestAdd(t *testing.T) {
 
 		dictionary.Add(dic_k, dic_v)
 
-		result, _ := dictionary.Search(dic_k)
+		result, err := dictionary.Search(dic_k)
 		expect := dic_v
 
 		assertResult(t, result, expect)
+		assertError(t, err, nil)
 	})
 
 	t.Run("tests it returns an error if key already exists", func(t *testing.T) {
