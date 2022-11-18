@@ -36,7 +36,7 @@ func (d Dictionary) Add(k, v string) error {
 	return nil
 }
 
-// Updates an existing key. Returns an error if key does not exists.
+// Updates an existing entry. Returns an error if key does not exist.
 func (d Dictionary) Update(k, v string) error {
 	result := d[k]
 
@@ -46,4 +46,17 @@ func (d Dictionary) Update(k, v string) error {
 
 	d[k] = v
 	return nil
+}
+
+// Deletes an existing entry. Returns an error if key does not exist.
+func (d Dictionary) Delete(k string) error {
+	result := d[k]
+
+	if result == "" {
+		return ErrKeyDoesNotExists
+	}
+
+	delete(d, k)
+	return nil
+
 }
