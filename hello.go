@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // Constants should improve performance of your application as it saves you creating the "Hello, " string instance every time Hello is called.
 const HelloPrefix = "Hello "
